@@ -75,8 +75,8 @@ var populateGameData = function(){
     awayScore.innerText = currentGame.result.goalsAwayTeam;
 }
 
-var handleButtonClick = function(){
-    console.log("clicked!");
-}
+// var handleButtonClick = function(){
+//     console.log("clicked!");
+// }
 
 window.addEventListener('load', app);

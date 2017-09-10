@@ -1,3 +1,24 @@
-background{
-    background-repeat:no-repeat;
+#names-and-scores {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-gap: 10px;
+  grid-auto-rows: 10px;
+  grid-template-areas: 
+    "a a a a b b b b"
+    "a a a a b b b b"
+    "c c c c d d d d"
+    "c c c c d d d d";
+  align-items: start;
+}
+#home-team-name {
+  grid-area: a;
+}
+#home-team-score {
+  grid-area: b;
+}
+#away-team-name {
+  grid-area: c;
+}
+#away-team-score {
+  grid-area: d;
 }
