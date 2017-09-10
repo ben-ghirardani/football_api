@@ -2,6 +2,8 @@
 // Football is about preparing you for the disapointments life has to throw at you, and few teams 
 // have prepared their fans better than Aston Villa in 2015/16. This is their story. 
 
+var myFixtures = [];
+
 var app = function(){
     urlLeagueTable2015 = "http://api.football-data.org/v1/competitions/398/leagueTable"
     urlFixtures2015 = "http://api.football-data.org/v1/competitions/398/fixtures"
@@ -44,7 +46,7 @@ var requestCompleteFixtures = function(){
     if (this.status !== 200) return;
     var jsonString = this.responseText;
     var fixtures2015 = JSON.parse(jsonString);
-    console.log(fixtures2015);
+    // console.log(fixtures2015);
     populateDropDown(fixtures2015);
 }
 
@@ -56,25 +58,28 @@ var populateDropDown = function(fixturesObject){
             opt.innerText = "Game: " + fixture.matchday + " " + fixture.homeTeamName + " " + "vs. " + fixture.awayTeamName;
             opt.value = fixture.matchday
             dropDown.appendChild(opt);
+            myFixtures.push(fixture);
         } 
     });
 }
 
-var populateGameData = function(){
-    console.log(this);
-}
 
-// homeTeamNameP.innerText = fixture.homeTeamName
-// homeTeamNameP.innerHTML = fixture;
-// opt.innerText = "Matchday: " + fixture.matchday;
-// var showGameResults = function(fixturesObject)
-// var homeTeamNameP = document.getElementById('home-team-name');
-// dropDown.addEventListener('change', showGameResults);
-// var showGameResults = function(){
-//     var dropDown = document.getElementById('choose-game');
-//     var homeTeamName = document.getElementById('home-team-name');
-//     homeTeamName.innerHTML = dropDown.homeTeamName;
+
+var populateGameData = function(){
+    var selectedMatchday = this.value;
+    var homeTeam = document.getElementById('home-team-name');
+    // // selectedMatchday variable now matches the matchday which is picked, but it's type is undefined.
+    myFixtures.forEach(function(fixture){
+        if(fixture.matchday === selectedMatchday){
+            homeTeam.innerText = fixture.homeTeamName;
+        } else {
+            homeTeam.innerText = "error";
+        }
+    })
+}
     
-// };
+
+console.log("myFixtures array: ", myFixtures);
+console.log(myFixtures[1]);
 
 window.addEventListener('load', app);
