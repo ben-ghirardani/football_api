@@ -10,8 +10,8 @@ var app = function(){
     var dropDown = document.getElementById('choose-game');
     dropDown.addEventListener('change', populateGameData); 
 
-    var button = document.querySelector('button');
-    button.addEventListener('click', handleButtonClick());
+    // var button = document.querySelector('button');
+    // button.addEventListener('click', handleButtonClick());
 }
 
 // League Table makeRequest and requestComplete
