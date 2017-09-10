@@ -1,8 +1,5 @@
-// Some people say that football is all about the glory of winning trophys. Some people are wrong. 
-// Football is about preparing you for the disapointments life has to throw at you, and few teams 
-// have prepared their fans better than Aston Villa in 2015/16. This is their story. 
-
 var myFixtures = [];
+var currentMatchday = null;
 
 var app = function(){
     urlLeagueTable2015 = "http://api.football-data.org/v1/competitions/398/leagueTable"
@@ -12,9 +9,8 @@ var app = function(){
     
     var dropDown = document.getElementById('choose-game');
     dropDown.addEventListener('change', populateGameData); 
+    // new ColumnChart();
 }
-
-// Refactor the requests to roll into one?
 
 // League Table makeRequest and requestComplete
 var makeRequestLeagueTable = function(url, callback){
@@ -63,23 +59,26 @@ var populateDropDown = function(fixturesObject){
     });
 }
 
-
-
 var populateGameData = function(){
     var selectedMatchday = this.value;
+    currentMatchday = this.value;
+    // this console.log gives the correct amount but the global one doesn't.
+    // console.log(currentMatchday);
     var homeTeam = document.getElementById('home-team-name');
-    // // selectedMatchday variable now matches the matchday which is picked, but it's type is undefined.
-    myFixtures.forEach(function(fixture){
-        if(fixture.matchday === selectedMatchday){
-            homeTeam.innerText = fixture.homeTeamName;
-        } else {
-            homeTeam.innerText = "error";
-        }
-    })
+    var homeScore = document.getElementById('home-team-score');
+    var awayTeam = document.getElementById('away-team-name');
+    var awayScore = document.getElementById('away-team-score');
+    var currentGame = myFixtures[selectedMatchday - 1];
+    homeTeam.innerText = currentGame.homeTeamName;
+    homeScore.innerText = currentGame.result.goalsHomeTeam;
+    awayTeam.innerText = currentGame.awayTeamName;
+    awayScore.innerText = currentGame.result.goalsAwayTeam;
 }
-    
 
-console.log("myFixtures array: ", myFixtures);
-console.log(myFixtures[1]);
+console.log(myFixtures);
+
 
 window.addEventListener('load', app);
+
+
+// add an event listener for a button click to populate the chart
