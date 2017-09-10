@@ -8,10 +8,9 @@ var app = function(){
     makeRequestLeagueTable(urlLeagueTable2015, requestCompleteLeagueTable);
     makeRequestFixtures(urlFixtures2015, requestCompleteFixtures);
     
+    var dropDown = document.getElementById('choose-game');
+    dropDown.addEventListener('change', populateGameData); 
 }
-
-// get it into a list
-
 
 // Refactor the requests to roll into one?
 
@@ -28,7 +27,7 @@ var requestCompleteLeagueTable = function(){
     if (this.status !== 200) return;
     var jsonString = this.responseText;
     var leagueTable2015 = JSON.parse(jsonString);
-    console.log(leagueTable2015);
+    // console.log(leagueTable2015);
     return leagueTable2015;
 }
 
@@ -46,19 +45,36 @@ var requestCompleteFixtures = function(){
     var jsonString = this.responseText;
     var fixtures2015 = JSON.parse(jsonString);
     console.log(fixtures2015);
-    return fixtures2015;
+    populateDropDown(fixtures2015);
 }
 
-// var populateChooseGameDropDown = function(fixtures){
-//     var dropDown = document.getElementById('choose-game'); 
-//     fixtures.forEach(function(fixture){
-//         if (fixture.awayTeamName === "Aston Villa FC" || fixture.homeTeamName === "Aston Villa FC"){
-//             var opt = document.createElement("option");
-//             opt.innerHTML = fixture;
-//             opt.innerText = "Matchday: " + fixture.matchday;
-//             dropDown.appendChild(opt);
-//         }
-//     });
-// }
+var populateDropDown = function(fixturesObject){
+    var dropDown = document.getElementById('choose-game'); 
+    fixturesObject.fixtures.forEach(function(fixture){
+        if (fixture.awayTeamName === "Aston Villa FC" || fixture.homeTeamName === "Aston Villa FC"){
+            var opt = document.createElement("option");
+            opt.innerText = "Game: " + fixture.matchday + " " + fixture.homeTeamName + " " + "vs. " + fixture.awayTeamName;
+            opt.value = fixture.matchday
+            dropDown.appendChild(opt);
+        } 
+    });
+}
+
+var populateGameData = function(){
+    console.log(this);
+}
+
+// homeTeamNameP.innerText = fixture.homeTeamName
+// homeTeamNameP.innerHTML = fixture;
+// opt.innerText = "Matchday: " + fixture.matchday;
+// var showGameResults = function(fixturesObject)
+// var homeTeamNameP = document.getElementById('home-team-name');
+// dropDown.addEventListener('change', showGameResults);
+// var showGameResults = function(){
+//     var dropDown = document.getElementById('choose-game');
+//     var homeTeamName = document.getElementById('home-team-name');
+//     homeTeamName.innerHTML = dropDown.homeTeamName;
+    
+// };
 
 window.addEventListener('load', app);
